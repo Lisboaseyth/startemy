@@ -1,7 +1,18 @@
-export default function Layout({ children }: { children: React.ReactNode }) {
+import { MainLayout } from "@/components/Layout/Main/component";
+import { Providers } from "./providers";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html>
-      <body>{children}</body>
+      <body style={{height: "100dvh"}}>
+        <Providers>
+          <MainLayout>{children}</MainLayout>
+        </Providers>
+      </body>
     </html>
   );
 }
