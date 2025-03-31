@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  FormControl,
-  FormLabel,
-  Select,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import { SelectCustomProps } from "./interface";
 
 export const SelectCustom = ({
@@ -45,17 +41,6 @@ export const SelectCustom = ({
       >
         {children}
       </Select>
-
-      {/* {icon && (
-        <Box
-          position="absolute"
-          right="12px"
-          top="50%"
-          transform="translateY(-50%)"
-        >
-          <Icon as={icon as unknown as React.ElementType} color="#718096" />
-        </Box>
-      )} */}
     </FormControl>
   );
 };
