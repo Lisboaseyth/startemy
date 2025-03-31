@@ -66,7 +66,7 @@ export const Nav = ({}: NavProps) => {
         >
           Login
         </Button>
-        <Button bg={"#001D3D"} variant={"custom"} py={2} px={4}>
+        <Button bg={"#001D3D"} variant={"custom"} py={2} px={4} onClick={() => openModal({ name: "register" })}>
           Criar Conta
         </Button>
       </HStack>

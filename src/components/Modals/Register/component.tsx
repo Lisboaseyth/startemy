@@ -15,12 +15,19 @@ import {
 } from "@chakra-ui/react";
 import { RegisterModalProps } from "./interface";
 import InputCustom from "@/components/Form/Input";
-import { HiOutlineMail, LiaBirthdayCakeSolid } from "@/components/Icons";
+import {
+  FaPhoneAlt,
+  HiOutlineMail,
+  IoIosContact,
+  LiaBirthdayCakeSolid,
+  MdContactEmergency,
+} from "@/components/Icons";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { loginSchema, LoginSchemaType } from "@/schemas/loginSchema";
 import { useModal } from "@/contexts/ModalContext";
+import { registerSchema, RegisterSchemaType } from "@/schemas/registerSchema";
+import SelectCustom from "@/components/Form/Select";
 
 export const RegisterModal = ({ onCancel }: RegisterModalProps) => {
   const { openModal } = useModal();
@@ -29,10 +36,10 @@ export const RegisterModal = ({ onCancel }: RegisterModalProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(registerSchema),
   });
 
-  const handleLogin = (data: LoginSchemaType) => {
+  const handleRegister = (data: RegisterSchemaType) => {
     console.log(data);
   };
 
@@ -79,18 +86,19 @@ export const RegisterModal = ({ onCancel }: RegisterModalProps) => {
           </HStack>
         </Stack>
         <ModalBody>
-          <Stack pb={4} as={"form"} onSubmit={handleSubmit(handleLogin)}>
+          <Stack pb={4} as={"form"} onSubmit={handleSubmit(handleRegister)}>
             <SimpleGrid spacing={4} columns={{ base: 1, md: 2 }}>
               <InputCustom
-                // error={errors.name}
-                // {...register("name")}
+                error={errors.name}
+                {...register("name")}
                 label="Nome"
-                icon={HiOutlineMail}
+                icon={IoIosContact}
               />
               <InputCustom
-                error={errors.password}
-                {...register("password")}
+                error={errors.birthdate}
+                {...register("birthdate")}
                 label="Data de Nascimento"
+                mask={"99/99/9999"}
                 icon={LiaBirthdayCakeSolid}
               />
               <InputCustom
@@ -100,10 +108,11 @@ export const RegisterModal = ({ onCancel }: RegisterModalProps) => {
                 icon={HiOutlineMail}
               />
               <InputCustom
-                error={errors.email}
-                {...register("email")}
+                error={errors.document}
+                {...register("document")}
+                mask={"999.999.999-99"}
                 label="CPF"
-                icon={HiOutlineMail}
+                icon={MdContactEmergency}
               />
               <InputCustom
                 error={errors.password}
@@ -112,17 +121,53 @@ export const RegisterModal = ({ onCancel }: RegisterModalProps) => {
                 label="Senha"
               />
               <InputCustom
-                error={errors.password}
-                {...register("password")}
+                error={errors.contact_number}
+                {...register("contact_number")}
+                icon={FaPhoneAlt}
                 type="number"
                 label="Contato"
               />
               <InputCustom
-                error={errors.password}
-                {...register("password")}
+                error={errors.repeat_password}
+                {...register("repeat_password")}
                 type="password"
                 label="Repita a Senha"
               />
+              <SelectCustom label="Nível de escolaridade">
+                <option
+                  style={{ background: "white" }}
+                  value="fundamental-incompleto"
+                >
+                  Ensino Fundamental Incompleto
+                </option>
+                <option
+                  style={{ background: "white" }}
+                  value="fundamental-completo"
+                >
+                  Ensino Fundamental Completo
+                </option>
+                <option
+                  style={{ background: "white" }}
+                  value="medio-incompleto"
+                >
+                  Ensino Médio Incompleto
+                </option>
+                <option style={{ background: "white" }} value="medio-completo">
+                  Ensino Médio Completo
+                </option>
+                <option
+                  style={{ background: "white" }}
+                  value="superior-incompleto"
+                >
+                  Ensino Superior Incompleto
+                </option>
+                <option
+                  style={{ background: "white" }}
+                  value="superior-completo"
+                >
+                  Ensino Superior Completo
+                </option>
+              </SelectCustom>
             </SimpleGrid>
 
             <Stack>

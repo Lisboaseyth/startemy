@@ -7,13 +7,12 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { InputCustomProps } from "./interface";
+import ReactInputMask from "@mona-health/react-input-mask";
 
-export const InputCustom = ({
-  label,
-  error = null,
-  icon,
-  ...props
-}: InputCustomProps) => {
+export const InputCustom = (
+  { label, error = null, icon, mask, ...props }: InputCustomProps,
+  ref?: React.Ref<HTMLInputElement>
+) => {
   return (
     <FormControl position="relative" isInvalid={!!error}>
       <FormLabel
@@ -32,16 +31,33 @@ export const InputCustom = ({
         {label}
       </FormLabel>
       <InputGroup>
-        <Input
-          {...props}
-          color={"#333333"}
-          pt="12px"
-          pb="4px"
-          borderColor="#DEE5EE"
-          transition="border 0.2s"
-          _hover={{ boxShadow: "none", borderColor: "#DEE5EE" }}
-          _focus={{ boxShadow: "none", borderColor: "#DEE5EE" }}
-        />
+        {mask ? (
+          <Input
+            {...props}
+            ref={ref}
+            as={ReactInputMask}
+            color={"#333333"}
+            mask={mask}
+            pt="12px"
+            pb="4px"
+            borderColor="#DEE5EE"
+            transition="border 0.2s"
+            _hover={{ boxShadow: "none", borderColor: "#DEE5EE" }}
+            _focus={{ boxShadow: "none", borderColor: "#DEE5EE" }}
+          />
+        ) : (
+          <Input
+            {...props}
+            color={"#333333"}
+            pt="12px"
+            pb="4px"
+            borderColor="#DEE5EE"
+            transition="border 0.2s"
+            _hover={{ boxShadow: "none", borderColor: "#DEE5EE" }}
+            _focus={{ boxShadow: "none", borderColor: "#DEE5EE" }}
+          />
+        )}
+
         {icon && (
           <InputRightElement pointerEvents="none">
             <Icon as={icon} size={20} color="#718096" />
