@@ -25,9 +25,11 @@ import {
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/contexts/ModalContext";
 
 export const NavMobile = ({}: NavMobileProps) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { openModal } = useModal();
   // const [cartCount, setCartCount] = React.useState(2);
   const router = useRouter();
   return (
@@ -93,6 +95,7 @@ export const NavMobile = ({}: NavMobileProps) => {
                   w={"full"}
                   variant="ghost"
                   rightIcon={<IoLogInOutline />}
+                  onClick={() => openModal({ name: "login" })}
                 >
                   Login
                 </Button>
@@ -103,6 +106,7 @@ export const NavMobile = ({}: NavMobileProps) => {
                   py={2}
                   px={4}
                   _hover={{ bg: "#004592" }}
+                  onClick={() => openModal({ name: "register" })}
                 >
                   Criar Conta
                 </Button>

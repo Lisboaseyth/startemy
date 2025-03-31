@@ -76,6 +76,7 @@ export const LoginModal = ({ onCancel }: LoginModalProps) => {
               textAlign={"end"}
               color={"#333333"}
               textDecoration={"underline"}
+              cursor={"pointer"}
             >
               Esqueceu a senha?
             </Text>
