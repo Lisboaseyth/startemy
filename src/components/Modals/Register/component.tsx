@@ -170,24 +170,9 @@ export const RegisterModal = ({ onCancel }: RegisterModalProps) => {
               </SelectCustom>
             </SimpleGrid>
 
-            <Stack>
-              <Button type="submit" variant={"custom"}>
-                Cadastrar
-              </Button>
-
-              <Button
-                type="submit"
-                border={"1px solid #001d3d"}
-                variant={"unstyled"}
-                color={"#001d3d"}
-                onClick={() => {
-                  onCancel();
-                  openModal({ name: "login" });
-                }}
-              >
-                Logar
-              </Button>
-            </Stack>
+            <Button type="submit" variant={"custom"}>
+              Cadastrar
+            </Button>
           </Stack>
         </ModalBody>
       </ModalContent>
