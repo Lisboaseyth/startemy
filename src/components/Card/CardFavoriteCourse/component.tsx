@@ -7,7 +7,7 @@ export const CardFavoriteCourse = ({ course }: CardFavoriteCourseProps) => {
     <Card>
       <CardBody>
         <HStack justifyContent={"space-between"}>
-          <Text fontSize={"lg"}>{course.name}</Text>
+          <Text fontSize={"lg"} color={"white"}>{course.name}</Text>
           <IconButton
             variant={"unstyled"}
             cursor={"pointer"}

@@ -13,7 +13,7 @@ import { CardCourseProps } from "./interface";
 
 export const CardCourse = ({ course }: CardCourseProps) => {
   return (
-    <Card maxW={{ base: "full", md: "350px" }} rounded={"md"} bg={"white"}>
+    <Card rounded={"md"} bg={"white"}>
       <CardBody p={0}>
         <Stack position={"relative"} spacing={0}>
           <Badge

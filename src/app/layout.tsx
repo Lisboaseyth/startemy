@@ -8,7 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body style={{height: "100dvh"}}>
+      <body style={{height: "100vh"}}>
         <Providers>
           <MainLayout>{children}</MainLayout>
         </Providers>
