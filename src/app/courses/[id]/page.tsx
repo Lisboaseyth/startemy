@@ -1,5 +1,6 @@
 "use client";
 
+import { formatMoney } from "@/utils/format";
 import {
   Heading,
   SimpleGrid,
@@ -13,10 +14,89 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  UnorderedList,
+  ListItem,
+  HStack,
+  Avatar,
+  Button,
+  Icon,
 } from "@chakra-ui/react";
+import { AiOutlineYoutube, FaRegClock, FaRegStar, FaUsers, MdSecurity } from "@/components/Icons";
 import React from "react";
 
 export default function Course() {
+
+  const courseDetail = {
+    name: "Desenvolvimento Web Full Stack com React e Node.js",
+    description: "Aprenda a desenvolver aplicações web modernas utilizando React no frontend e Node.js no backend.",
+    image: "https://example.com/course-image.jpg",
+    content: [
+      {
+        name: "Módulo 1: Introdução ao Desenvolvimento Web",
+        steps: [
+          { info: "O que é desenvolvimento web?" },
+          { info: "Como funciona a internet?" },
+          { info: "HTML e CSS básicos" },
+          { info: "Primeiros passos com JavaScript" }
+        ]
+      },
+      {
+        name: "Módulo 2: Fundamentos do React",
+        steps: [
+          { info: "Criando seu primeiro projeto com Create React App" },
+          { info: "Componentes e Props" },
+          { info: "Estado e Hooks" },
+          { info: "Gerenciamento de estado com Context API" }
+        ]
+      },
+      {
+        name: "Módulo 3: Backend com Node.js e Express",
+        steps: [
+          { info: "Introdução ao Node.js" },
+          { info: "Criando uma API REST com Express" },
+          { info: "Banco de Dados com MongoDB" },
+          { info: "Autenticação com JWT" }
+        ]
+      }
+    ],
+    value: 499.00,
+    warranty_time: 30,
+    total_hours: 50,
+    total_classes: 500,
+    students: 1500,
+    amount_students: 5000,
+    author: {
+      name: "João Silva",
+      image: "https://cdn3.pixelcut.app/7/18/profile_photo_maker_hero_100866f715.jpg",
+      description: "Desenvolvedor Full Stack com mais de 10 anos de experiência.",
+    },
+    reviews: [
+      {
+        evaluation_note: 5,
+        review_text: "Curso excelente! Aprendi muito e consegui meu primeiro emprego como desenvolvedor.",
+        date_review: "2024-06-15",
+        evaluator_name: "Ana Souza"
+      },
+      {
+        evaluation_note: 4,
+        review_text: "Ótimo conteúdo, mas poderia ter mais exercícios práticos.",
+        date_review: "2024-07-02",
+        evaluator_name: "Carlos Oliveira"
+      },
+      {
+        evaluation_note: 5,
+        review_text: "Explicações muito claras e suporte rápido nas dúvidas!",
+        date_review: "2024-07-10",
+        evaluator_name: "Mariana Costa"
+      }
+    ]
+  };
+
+  const handleCalculateAverageRating = () => {
+    const totalEvaluation = courseDetail.reviews.reduce((sum, review) => sum + review.evaluation_note, 0);
+    return (totalEvaluation / courseDetail.reviews.length).toFixed(1);
+  }
+
   return (
     <Stack
       w={"full"}
@@ -28,10 +108,10 @@ export default function Course() {
       <SimpleGrid
         columns={{ base: 1, md: 2 }}
         spacing={4}
-        templateColumns={{ md: "repeat(1, 3fr 1fr)" }}
+        templateColumns={{ md: "repeat(1, 3fr 1.5fr)" }}
       >
-        <Stack maxW={{ base: "full", md: "800px" }}>
-          <Heading color={"#333333"}>Curso JavaScript</Heading>
+        <Stack maxW={{ base: "full", md: "800px" }} spacing={{ base: 4, md: 8 }}>
+          <Heading fontSize={{ base: "2xl", md: "3xl" }} color={"#333333"}>{courseDetail?.name}</Heading>
           <Stack
             direction={{ base: "column", md: "row" }}
             spacing={4}
@@ -44,39 +124,105 @@ export default function Course() {
               objectFit={"cover"}
             />
             <Box>
-              <Badge bg={"#001D3D"}>Sobre</Badge>
+              <Badge color={"white"} bg={"#001D3D"}>Sobre</Badge>
               <Text>
-                Aprenda JavaScript do básico ao avançado. O curso mais completo
-                de JavaScript do Brasil.Aprenda JavaScript do básico ao
-                avançado. O curso mais completo de JavaScript do Brasil.Aprenda
-                JavaScript do básico ao avançado. O curso mais completo de
-                JavaScript do Brasil.
+                {courseDetail?.description}
               </Text>
             </Box>
           </Stack>
-          <Stack color={"#333333"}>
-            <Accordion defaultIndex={[0]} allowMultiple>
-              <AccordionItem>
-                <Text>
-                  <AccordionButton rounded={"md"} bg={"#EBEBEB"}>
-                    <Box as="span" flex="1" textAlign="left">
-                      Introdução
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </Text>
-                <AccordionPanel pb={4}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
+          <Accordion allowMultiple>
+            {
+              courseDetail?.content?.map((module, index) => (
+                <AccordionItem key={index} mb={2}>
+                  <Text>
+                    <AccordionButton rounded={"md"} bg={"#EBEBEB"}>
+                      <Box as="span" flex="1" textAlign="left">
+                        {module.name}
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </Text>
+                  <AccordionPanel pb={4}>
+                    {
+                      <UnorderedList textDecoration={""}>
+                        {module?.steps?.map((step, index) => (
+                          <ListItem key={index}>{step.info}</ListItem>
+                        ))}
+                      </UnorderedList>
+                    }
+                  </AccordionPanel>
+                </AccordionItem>
+              ))
+            }
+          </Accordion>
+          <Stack>
+            <Text fontWeight={"bold"} fontSize={"2xl"} color={"#333333"}>Criador do conteúdo</Text>
+            <HStack alignItems={"center"}>
+              <Avatar size='lg' src={courseDetail?.author?.image} />
+              <Box>
+                <Text fontSize={"18px"} fontWeight={"bold"}>{courseDetail?.author?.name}</Text>
+                <Text fontSize={"15px"}>{courseDetail?.author?.description}</Text>
+              </Box>
+            </HStack>
+          </Stack>
+          <Stack>
+            <Text fontWeight={"bold"} fontSize={"2xl"}>Avaliações</Text>
+            <HStack alignItems={"flex-end"} mb={4}>
+              <Text fontWeight={"bold"} fontSize={"7xl"} lineHeight={"70px"}>{handleCalculateAverageRating()}</Text>
+              <Box>
+                <Text fontSize={"18px"} fontWeight={"bold"}>Total:</Text>
+                <Text fontSize={"15px"}>{courseDetail?.reviews?.length} Avaliações</Text>
+              </Box>
+            </HStack>
+            <Stack>
+              {
+                courseDetail?.reviews?.map((review, index) => (
+                  <Stack key={index} border={"2px solid #EBEBEB"} p={4} rounded={"md"} mb={2}>
+                    <HStack alignItems={"center"}>
+                      <Badge bg={"#333333"} color={"white"}>{review?.evaluation_note}</Badge>
+                      <Text fontWeight={"bold"}>{review.evaluator_name}</Text>
+                      <Text fontSize={"12px"} color={"gray.500"}>{new Date(review.date_review).toLocaleDateString()}</Text>
+                    </HStack>
+                    <Text fontSize={"15px"}>{review.review_text}</Text>
+                  </Stack>
+                ))
+              }
+            </Stack>
           </Stack>
         </Stack>
-        <Stack bg={"red"}>
-          <video></video>
+        <Stack maxH={"400px"} border={"2px solid #EBEBEB"} rounded={"md"} p={4} spacing={4}>
+          <Text fontWeight={"bold"} fontSize={"3xl"}>{formatMoney(courseDetail?.value)}</Text>
+          <Button>Ir para o Carrinho</Button>
+          <HStack>
+            <Icon as={FaRegStar} color={"#333333"} />
+            <Text fontWeight={"bold"}>
+              {handleCalculateAverageRating()} - {courseDetail?.reviews?.length} Avaliações
+            </Text>
+          </HStack>
+          <HStack>
+            <Icon as={MdSecurity} color={"#333333"} />
+            <Text fontSize={"14px"}>
+              {courseDetail?.warranty_time} Dias de garantia
+            </Text>
+          </HStack>
+          <HStack>
+            <Icon as={AiOutlineYoutube} color={"#333333"} />
+            <Text fontSize={"14px"}>
+              {courseDetail?.total_classes} aulas
+            </Text>
+          </HStack>
+          <HStack>
+            <Icon as={FaRegClock} color={"#333333"} />
+            <Text fontSize={"14px"}>
+              {courseDetail?.total_hours} horas de conteúdo
+            </Text>
+          </HStack>
+          <HStack>
+            <Icon as={FaUsers} color={"#333333"} />
+            <Text fontSize={"14px"}>
+              +{courseDetail?.amount_students} Alunos
+            </Text>
+          </HStack>
         </Stack>
       </SimpleGrid>
     </Stack>
