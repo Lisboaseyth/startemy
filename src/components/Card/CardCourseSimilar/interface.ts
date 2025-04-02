@@ -1,4 +1,4 @@
 import { Course } from "@/interfaces/Course";
-export interface CardCourseProps {
+export interface CardCourseSimilarProps {
   course: Course;
 }

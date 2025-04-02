@@ -35,6 +35,12 @@ const theme = extendTheme({
             color: "#b0b0b0",
           },
         },
+        remove: {
+          color: "white",
+          _hover: {
+            bg: "red",
+          },
+        },
       },
     },
     Text: {

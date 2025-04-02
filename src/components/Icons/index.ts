@@ -8,6 +8,7 @@ import { FaPhoneAlt, FaRegStar, FaUsers } from "react-icons/fa";
 import { IoIosContact } from "react-icons/io";
 import { MdContactEmergency, MdSecurity } from "react-icons/md";
 import { AiOutlineYoutube } from "react-icons/ai";
+import { CiSquareRemove } from "react-icons/ci";
 
 export {
   IoBookOutline,
@@ -15,6 +16,7 @@ export {
   IoMenuOutline,
   IoIosContact,
   GoArrowUpRight,
+  CiSquareRemove,
   BsCart2,
   FaRegEye,
   FaRegEyeSlash,
@@ -26,5 +28,5 @@ export {
   LiaBirthdayCakeSolid,
   MdContactEmergency,
   MdSecurity,
-  AiOutlineYoutube
+  AiOutlineYoutube,
 };
