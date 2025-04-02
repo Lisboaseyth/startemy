@@ -1,19 +1,18 @@
 import {
   Badge,
-  Button,
   Card,
   CardBody,
-  HStack,
   Image,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { CardCourseProps } from "./interface";
+import { CardCourseSimilarProps } from "./interface";
+import { formatMoney } from "@/utils/format";
 
-export const CardCourse = ({ course }: CardCourseProps) => {
+export const CardCourseSimilar = ({ course }: CardCourseSimilarProps) => {
   return (
-    <Card rounded={"md"} bg={"white"}>
+    <Card maxW={"200px"} rounded={"md"} bg={"white"}>
       <CardBody p={0}>
         <Stack position={"relative"} spacing={0}>
           <Badge
@@ -33,32 +32,21 @@ export const CardCourse = ({ course }: CardCourseProps) => {
             right={2}
             rounded={"sm"}
           >
-            R${course.value}
+            {formatMoney(course.value)}
           </Badge>
           <Image
             roundedTop={"md"}
             alt="bg-course"
-            src="/assets/courses/types.webp"
+            src={course.image}
             w={"full"}
             height={150}
             objectFit={"cover"}
           />
         </Stack>
         <Stack p={2} spacing={0}>
-          <Text fontSize="lg" fontWeight="bold" color="#001d3d" isTruncated>
+          <Text color="#001d3d" isTruncated>
             {course.name}
           </Text>
-          <Text fontSize="sm" color="gray.500" isTruncated>
-            3 aulas
-          </Text>
-          <HStack justifyContent={"space-between"} w={"full"}>
-            <Text fontSize="sm" color="gray.500" isTruncated>
-              00:34m
-            </Text>
-            <Button variant={"unstyled"} color={"#001d3d"}>
-              Ver curso
-            </Button>
-          </HStack>
         </Stack>
       </CardBody>
     </Card>
