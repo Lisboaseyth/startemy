@@ -19,9 +19,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema, LoginSchemaType } from "@/schemas/loginSchema";
 import { useModal } from "@/contexts/ModalContext";
+import { useAuth } from "@/contexts/AuthContext";
+import useFetch from "@/hooks/useFetch/hook";
 
 export const LoginModal = ({ onCancel }: LoginModalProps) => {
   const { openModal } = useModal();
+  const { login, isLoadingLogin } = useAuth()
   const {
     register,
     handleSubmit,
@@ -30,9 +33,13 @@ export const LoginModal = ({ onCancel }: LoginModalProps) => {
     resolver: yupResolver(loginSchema),
   });
 
-  const handleLogin = (data: LoginSchemaType) => {
-    console.log(data);
-  };
+  const handleSubmitLogin = async (formData: LoginSchemaType) => {
+    try {
+      await login(formData)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <Modal
@@ -57,12 +64,12 @@ export const LoginModal = ({ onCancel }: LoginModalProps) => {
           Login
         </ModalHeader>
         <ModalBody>
-          <Stack pb={4} as={"form"} onSubmit={handleSubmit(handleLogin)}>
+          <Stack pb={4} as={"form"} onSubmit={handleSubmit(handleSubmitLogin)}>
             <Stack spacing={4}>
               <InputCustom
-                error={errors.email}
-                {...register("email")}
-                label="Email"
+                error={errors.username}
+                {...register("username")}
+                label="Usuário"
                 icon={HiOutlineMail}
               />
               <InputCustom
@@ -81,14 +88,13 @@ export const LoginModal = ({ onCancel }: LoginModalProps) => {
               Esqueceu a senha?
             </Text>
             <Stack>
-              <Button type="submit" variant={"custom"}>
+              <Button isLoading={isLoadingLogin} type="submit" variant={"custom"}>
                 Entrar
               </Button>
               <Text textAlign={"center"} color={"#333333"}>
                 Não possui uma conta?
               </Text>
               <Button
-                type="submit"
                 border={"1px solid #001d3d"}
                 variant={"unstyled"}
                 color={"#001d3d"}
