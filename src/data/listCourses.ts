@@ -7,23 +7,29 @@ export const listCourse: Array<Course> = [
       "Aprenda a desenvolver aplicações web modernas utilizando React no frontend e Node.js no backend.",
     image: "https://img-c.udemycdn.com/course/750x422/4505104_8592_8.jpg",
     type: "Javascript",
-    content: [
+    modules: [
       {
         name: "Módulo 1: Introdução ao Desenvolvimento Web",
+        description: "Aqui iremos aprender os passos basicos do desenvolvimento",
         steps: [
-          "O que é desenvolvimento web?",
-          "Como funciona a internet?",
-          "HTML e CSS básicos",
-          "Primeiros passos com JavaScript",
+          {
+            title: "O que é desenvolvimento web?",
+            description: "Aqui iremos aprender os passos basicos do desenvolvimento",
+            url_video: "https://google.com",
+            url_image: "https://google.com"
+          },
         ],
       },
       {
-        name: "Módulo 2: Fundamentos do React",
+        name: "Módulo 1: Introdução ao Desenvolvimento Web",
+        description: "Aqui iremos aprender os passos basicos do desenvolvimento",
         steps: [
-          "Criando seu primeiro projeto com Create React App",
-          "Componentes e Props",
-          "Estado e Hooks",
-          "Gerenciamento de estado com Context API",
+          {
+            title: "O que é desenvolvimento web?",
+            description: "Aqui iremos aprender os passos basicos do desenvolvimento",
+            url_video: "https://google.com",
+            url_image: "https://google.com"
+          },
         ],
       },
     ],
@@ -57,13 +63,29 @@ export const listCourse: Array<Course> = [
     image:
       "https://www.unite.ai/wp-content/uploads/2022/04/AI-Python-Libraries.png",
     type: "Python",
-    content: [
+    modules: [
       {
-        name: "Módulo 1: Introdução à IA",
+        name: "Módulo 1: Introdução ao Desenvolvimento Web",
+        description: "Aqui iremos aprender os passos basicos do desenvolvimento",
         steps: [
-          "História da Inteligência Artificial",
-          "Aprendizado de Máquina vs. Aprendizado Profundo",
-          "Instalação e Configuração do Ambiente",
+          {
+            title: "O que é desenvolvimento web?",
+            description: "Aqui iremos aprender os passos basicos do desenvolvimento",
+            url_video: "https://google.com",
+            url_image: "https://google.com"
+          },
+        ],
+      },
+      {
+        name: "Módulo 1: Introdução ao Desenvolvimento Web",
+        description: "Aqui iremos aprender os passos basicos do desenvolvimento",
+        steps: [
+          {
+            title: "O que é desenvolvimento web?",
+            description: "Aqui iremos aprender os passos basicos do desenvolvimento",
+            url_video: "https://google.com",
+            url_image: "https://google.com"
+          },
         ],
       },
     ],
@@ -97,13 +119,29 @@ export const listCourse: Array<Course> = [
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7MeUW8ACldQjLSl6KS_A6XkvBzl45R9IrAw&s",
     type: "Design",
-    content: [
+    modules: [
       {
-        name: "Módulo 1: Fundamentos do Design UX/UI",
+        name: "Módulo 1: Introdução ao Desenvolvimento Web",
+        description: "Aqui iremos aprender os passos basicos do desenvolvimento",
         steps: [
-          "O que é UX e UI?",
-          "Princípios de Design Centrado no Usuário",
-          "Ferramentas de Design (Figma, Adobe XD)",
+          {
+            title: "O que é desenvolvimento web?",
+            description: "Aqui iremos aprender os passos basicos do desenvolvimento",
+            url_video: "https://google.com",
+            url_image: "https://google.com"
+          },
+        ],
+      },
+      {
+        name: "Módulo 1: Introdução ao Desenvolvimento Web",
+        description: "Aqui iremos aprender os passos basicos do desenvolvimento",
+        steps: [
+          {
+            title: "O que é desenvolvimento web?",
+            description: "Aqui iremos aprender os passos basicos do desenvolvimento",
+            url_video: "https://google.com",
+            url_image: "https://google.com"
+          },
         ],
       },
     ],

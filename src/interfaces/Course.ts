@@ -1,10 +1,13 @@
 export interface Course {
-  name: string;
+  id: number;
+  title: string;
   description: string;
   image: string;
-  content: Array<{
+  modules: Array<{
+    id: number;
     name: string;
-    steps: Array<string>;
+    description: string;
+    steps: Array<Step>;
   }>;
   value: number;
   warranty_time: number;
@@ -24,4 +27,12 @@ export interface Course {
     date_review: string;
     evaluator_name: string;
   }>;
+}
+
+export interface Step {
+  id: number;
+  title: string;
+  description: string;
+  url_video: string;
+  url_image: string;
 }
