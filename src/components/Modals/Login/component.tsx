@@ -20,11 +20,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema, LoginSchemaType } from "@/schemas/loginSchema";
 import { useModal } from "@/contexts/ModalContext";
 import { useAuth } from "@/contexts/AuthContext";
-import useFetch from "@/hooks/useFetch/hook";
+import { useRouter } from "next/navigation";
 
 export const LoginModal = ({ onCancel }: LoginModalProps) => {
   const { openModal } = useModal();
-  const { login, isLoadingLogin } = useAuth()
+  const { login, isLoadingLogin } = useAuth();
   const {
     register,
     handleSubmit,
@@ -33,13 +33,18 @@ export const LoginModal = ({ onCancel }: LoginModalProps) => {
     resolver: yupResolver(loginSchema),
   });
 
+  const router = useRouter();
+
   const handleSubmitLogin = async (formData: LoginSchemaType) => {
     try {
-      await login(formData)
+      await login(formData).then(() => {
+        onCancel();
+        router.push("/courses");
+      });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <Modal
@@ -88,7 +93,11 @@ export const LoginModal = ({ onCancel }: LoginModalProps) => {
               Esqueceu a senha?
             </Text>
             <Stack>
-              <Button isLoading={isLoadingLogin} type="submit" variant={"custom"}>
+              <Button
+                isLoading={isLoadingLogin}
+                type="submit"
+                variant={"custom"}
+              >
                 Entrar
               </Button>
               <Text textAlign={"center"} color={"#333333"}>

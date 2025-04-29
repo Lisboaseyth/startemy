@@ -19,7 +19,7 @@ export const CardCourse = ({ course }: CardCourseProps) => {
           <Badge
             top={15}
             bg={"#001d3d"}
-            w={"100px"}
+            color={"white"}
             textAlign={"center"}
             position={"absolute"}
           >
@@ -28,6 +28,7 @@ export const CardCourse = ({ course }: CardCourseProps) => {
           <Badge
             position={"absolute"}
             bg={"#001d3d"}
+            color={"white"}
             bottom={2}
             fontSize={"md"}
             right={2}

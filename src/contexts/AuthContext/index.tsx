@@ -1,7 +1,11 @@
 "use client";
 
 import React from "react";
-import { AuthContextProps, AuthProviderProps, LoginAuthenticated } from "./interface";
+import {
+  AuthContextProps,
+  AuthProviderProps,
+  LoginAuthenticated,
+} from "./interface";
 import { User } from "@/interfaces/User";
 import { destroyCookie, setCookie } from "nookies";
 import useFetch from "@/hooks/useFetch/hook";
@@ -10,13 +14,13 @@ import { RegisterSchemaType } from "@/schemas/registerSchema";
 import { useRouter } from "next/navigation";
 
 const AuthContext = React.createContext<AuthContextProps>({
-  login: async () => ({}) as LoginAuthenticated,
-  logout: async () => { },
-  register: async () => { },
+  login: async () => ({} as LoginAuthenticated),
+  logout: async () => {},
+  register: async () => {},
   user: {} as User,
   isAuthenticated: false,
   isLoadingLogin: true,
-  isLoadingRegister: true
+  isLoadingRegister: true,
 });
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -31,27 +35,25 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const handleUserState = (data: LoginAuthenticated) => {
-    const { user, acess } = data;
+    const { user, access } = data;
     setUser(user);
-    handleSetCookies(acess);
+    handleSetCookies(access);
   };
 
   const login = async (formData: LoginSchemaType) => {
-    console.log(formData)
     const { data } = await requestLogin("/api/auth/login", {
       method: "POST",
       body: formData,
-    })
-
-    handleUserState(data)
+    });
+    handleUserState(data);
     return data;
-  }
+  };
 
   const register = async (formData: RegisterSchemaType) => {
     const { data } = await requestRegister("/api/auth/register", {
       method: "POST",
-      body: formData
-    })
+      body: formData,
+    });
 
     handleUserState(data);
   };
@@ -67,11 +69,21 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoadingLogin, isLoadingRegister, login, logout, register, user }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        isLoadingLogin,
+        isLoadingRegister,
+        login,
+        logout,
+        register,
+        user,
+      }}
+    >
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 function useAuth() {
   const context = React.useContext(AuthContext);

@@ -1,10 +1,25 @@
 "use client";
 
 import CardCourse from "@/components/Card/CardCourse";
+import useFetch from "@/hooks/useFetch/hook";
 import { listLanguages } from "@/utils/listLanguages";
 import { Button, HStack, SimpleGrid, Stack } from "@chakra-ui/react";
+import React from "react";
 
 export default function Courses() {
+  const [request, isLoadingCourses, courses] = useFetch();
+
+  const handleGetCourses = async () => {
+    return await request("/api/courses/public", {
+      method: "GET",
+    });
+  };
+
+  console.log(courses);
+
+  React.useEffect(() => {
+    handleGetCourses();
+  }, []);
   return (
     <Stack
       w={"full"}

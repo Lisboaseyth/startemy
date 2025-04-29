@@ -18,7 +18,7 @@ export interface AuthProviderProps {
 }
 
 export interface LoginAuthenticated {
-  acess: string;
+  access: string;
   refresh: string;
   user: User;
 }

@@ -4,9 +4,15 @@ import React from "react";
 import { useLoading } from "../useLoading/hook";
 import { FetchResponse, Options } from "./interface";
 
+const defaultPagination = {
+  current_page: 1,
+  next: null,
+  previous: null,
+};
 
 export default function useFetch<T>() {
   const [data, setData] = React.useState<T>();
+  const [pagination, setPagination] = React.useState(defaultPagination);
   const { isLoading, executeAsyncFunction } = useLoading();
 
   const request = async (
@@ -28,12 +34,12 @@ export default function useFetch<T>() {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      ...(options.headers || {})
+      ...(options.headers || {}),
     };
 
     const config: RequestInit = {
       method: options.method,
-      headers
+      headers,
     };
 
     if (options.method !== "GET" && options.body) {
