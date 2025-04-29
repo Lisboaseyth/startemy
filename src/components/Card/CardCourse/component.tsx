@@ -4,14 +4,18 @@ import {
   Card,
   CardBody,
   HStack,
+  Icon,
   Image,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
 import { CardCourseProps } from "./interface";
+import { AiOutlineYoutube, FaRegClock } from "@/components/Icons";
+import { useRouter } from "next/navigation";
 
 export const CardCourse = ({ course }: CardCourseProps) => {
+  const router = useRouter();
   return (
     <Card rounded={"md"} bg={"white"}>
       <CardBody p={0}>
@@ -39,7 +43,7 @@ export const CardCourse = ({ course }: CardCourseProps) => {
           <Image
             roundedTop={"md"}
             alt="bg-course"
-            src="/assets/courses/types.webp"
+            src={course.image || "/assets/courses/types.webp"}
             w={"full"}
             height={150}
             objectFit={"cover"}
@@ -47,16 +51,25 @@ export const CardCourse = ({ course }: CardCourseProps) => {
         </Stack>
         <Stack p={2} spacing={0}>
           <Text fontSize="lg" fontWeight="bold" color="#001d3d" isTruncated>
-            {course.name}
+            {course.title}
           </Text>
-          <Text fontSize="sm" color="gray.500" isTruncated>
-            3 aulas
-          </Text>
-          <HStack justifyContent={"space-between"} w={"full"}>
+          <HStack>
+            <Icon as={AiOutlineYoutube} />
             <Text fontSize="sm" color="gray.500" isTruncated>
-              00:34m
+              {course.total_classes} aulas
             </Text>
-            <Button variant={"unstyled"} color={"#001d3d"}>
+          </HStack>
+          <HStack justifyContent={"space-between"} w={"full"}>
+            <HStack>
+              <Icon as={FaRegClock} />
+              <Text fontSize="sm" color="gray.500" isTruncated>
+                {course.total_hours} Horas
+              </Text>
+            </HStack>
+
+            <Button onClick={() => {
+              router.push(`/courses/${course.id}`);
+            }} variant={"unstyled"} color={"#001d3d"}>
               Ver curso
             </Button>
           </HStack>

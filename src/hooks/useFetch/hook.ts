@@ -60,7 +60,8 @@ export default function useFetch<T>() {
 
       const responseData = await res.json();
 
-      setData(responseData.data as T);
+      setData(responseData.results as T);
+      setPagination(responseData.meta || defaultPagination);
 
       return Promise.resolve({
         ...responseData,
@@ -73,5 +74,5 @@ export default function useFetch<T>() {
     }
   };
 
-  return [request, isLoading, data] as const;
+  return [request, isLoading, data, pagination] as const;
 }

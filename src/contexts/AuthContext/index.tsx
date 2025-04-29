@@ -7,16 +7,17 @@ import {
   LoginAuthenticated,
 } from "./interface";
 import { User } from "@/interfaces/User";
-import { destroyCookie, setCookie } from "nookies";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 import useFetch from "@/hooks/useFetch/hook";
 import { LoginSchemaType } from "@/schemas/loginSchema";
 import { RegisterSchemaType } from "@/schemas/registerSchema";
 import { useRouter } from "next/navigation";
+import { Refresh } from "@/interfaces/Refresh";
 
 const AuthContext = React.createContext<AuthContextProps>({
   login: async () => ({} as LoginAuthenticated),
-  logout: async () => {},
-  register: async () => {},
+  logout: async () => { },
+  register: async () => { },
   user: {} as User,
   isAuthenticated: false,
   isLoadingLogin: true,
@@ -26,12 +27,13 @@ const AuthContext = React.createContext<AuthContextProps>({
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [requestLogin, isLoadingLogin] = useFetch<LoginAuthenticated>();
   const [requestRegister, isLoadingRegister] = useFetch<LoginAuthenticated>();
+  const [requestRefreshToken] = useFetch();
   const [user, setUser] = React.useState<User>({} as User);
   const isAuthenticated = !!user?.id;
   const router = useRouter();
 
   const handleSetCookies = (token: string) => {
-    setCookie(undefined, "token", token, { path: "/" });
+    setCookie(undefined, "token", token);
   };
 
   const handleUserState = (data: LoginAuthenticated) => {
@@ -67,6 +69,32 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     clearSession();
     router.push("/");
   };
+
+  const validateToken = async () => {
+    const { token } = parseCookies();
+    try {
+      if (token) {
+        const resp = await requestRefreshToken("/api/auth/refresh", {
+          method: "GET"
+        })
+        const authValidated = resp as unknown as Refresh
+        if (authValidated.user) {
+          setUser(authValidated.user)
+          handleSetCookies(authValidated.tokens.access)
+        } else {
+          clearSession()
+        }
+      } else {
+        setUser({} as User);
+      }
+    } catch (error) {
+      clearSession();
+    }
+  };
+
+  React.useEffect(() => {
+    validateToken();
+  }, []);
 
   return (
     <AuthContext.Provider

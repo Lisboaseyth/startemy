@@ -1,8 +1,10 @@
 export interface Course {
-  name: string;
+  id: number;
+  title: string;
   description: string;
   image: string;
   modules: Array<{
+    id: number;
     name: string;
     description: string;
     steps: Array<Step>;
@@ -28,6 +30,7 @@ export interface Course {
 }
 
 export interface Step {
+  id: number;
   title: string;
   description: string;
   url_video: string;

@@ -1,15 +1,17 @@
 "use client";
 
-import { Badge, Box, Button, HStack } from "@chakra-ui/react";
+import { Avatar, Badge, Box, Button, HStack, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { NavProps } from "./interface";
-import { IoBookOutline, IoLogInOutline, BsCart2 } from "@/components/Icons";
+import { IoBookOutline, IoLogInOutline, BsCart2, IoPersonOutline, IoLogOutOutline, PiBooks } from "@/components/Icons";
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/contexts/ModalContext";
+import { useAuth } from "@/contexts/AuthContext";
 
-export const Nav = ({}: NavProps) => {
+export const Nav = ({ }: NavProps) => {
   // const [cartCount, setCartCount] = React.useState(3);
+  const { isAuthenticated, logout } = useAuth()
   const router = useRouter();
   const { openModal } = useModal();
   return (
@@ -57,18 +59,48 @@ export const Nav = ({}: NavProps) => {
           </Badge>
           {/* )}*/}
         </Box>
-        <Button
-          color={"#001d3d"}
-          fontWeight={"bold"}
-          variant="ghost"
-          rightIcon={<IoLogInOutline />}
-          onClick={() => openModal({ name: "login" })}
-        >
-          Login
-        </Button>
-        <Button bg={"#001D3D"} variant={"custom"} py={2} px={4} onClick={() => openModal({ name: "register" })}>
-          Criar Conta
-        </Button>
+        {isAuthenticated ? (
+          <React.Fragment>
+            <Menu>
+              <MenuButton as={Button} variant="ghost" p={0} _hover={{ bg: "transparent" }}>
+                <Avatar size="sm" name="Pedro Lisboa" src="/path-do-avatar.jpg" />
+              </MenuButton>
+              <MenuList>
+                <MenuItem icon={<IoPersonOutline />} onClick={() => router.push("/profile")}>
+                  Perfil
+                </MenuItem>
+                <MenuItem icon={<PiBooks />} onClick={() => router.push("/profile")}>
+                  Meus Cursos
+                </MenuItem>
+                <MenuItem
+                  icon={<IoLogOutOutline />}
+                  onClick={() => {
+                    logout()
+                  }}
+                >
+                  Sair
+                </MenuItem>
+              </MenuList>
+            </Menu>
+
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Button
+              color={"#001d3d"}
+              fontWeight={"bold"}
+              variant="ghost"
+              rightIcon={<IoLogInOutline />}
+              onClick={() => openModal({ name: "login" })}
+            >
+              Login
+            </Button>
+            <Button bg={"#001D3D"} variant={"custom"} py={2} px={4} onClick={() => openModal({ name: "register" })}>
+              Criar Conta
+            </Button>
+          </React.Fragment>
+        )}
+
       </HStack>
     </HStack>
   );
