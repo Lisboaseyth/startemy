@@ -13,11 +13,12 @@ import { LoginSchemaType } from "@/schemas/loginSchema";
 import { RegisterSchemaType } from "@/schemas/registerSchema";
 import { useRouter } from "next/navigation";
 import { Refresh } from "@/interfaces/Refresh";
+import { Toast } from "@chakra-ui/react";
 
 const AuthContext = React.createContext<AuthContextProps>({
   login: async () => ({} as LoginAuthenticated),
-  logout: async () => { },
-  register: async () => { },
+  logout: async () => {},
+  register: async () => {},
   user: {} as User,
   isAuthenticated: false,
   isLoadingLogin: true,
@@ -75,20 +76,27 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       if (token) {
         const resp = await requestRefreshToken("/api/auth/refresh", {
-          method: "GET"
-        })
-        const authValidated = resp as unknown as Refresh
+          method: "GET",
+        });
+        const authValidated = resp as unknown as Refresh;
         if (authValidated.user) {
-          setUser(authValidated.user)
-          handleSetCookies(authValidated.tokens.access)
+          setUser(authValidated.user);
+          handleSetCookies(authValidated.tokens.access);
         } else {
-          clearSession()
+          clearSession();
         }
       } else {
         setUser({} as User);
       }
-    } catch (error) {
+    } catch {
       clearSession();
+      Toast({
+        title: "Session expired",
+        description: "Please log in again.",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
