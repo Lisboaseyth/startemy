@@ -143,23 +143,9 @@ export default function CourseByIdComponent({ id }: CoursesByIdComponentProps) {
 
                   <CardInfos
                     icon={MdSecurity}
+                    header={"Garantia"}
                     info={courseById?.warranty_time}
-                    description={"Dias de garantia"}
-                  />
-                  <CardInfos
-                    icon={AiOutlineYoutube}
-                    info={courseById?.total_classes}
-                    description={"Aulas"}
-                  />
-                  <CardInfos
-                    icon={FaRegClock}
-                    info={courseById?.total_hours}
-                    description={"h de conteúdo"}
-                  />
-                  <CardInfos
-                    icon={FaUsers}
-                    info={courseById?.amount_students}
-                    description={"Alunos"}
+                    description={"Dias"}
                   />
                 </SimpleGrid>
               </Stack>
